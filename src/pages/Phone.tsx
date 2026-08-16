@@ -143,7 +143,12 @@ export const PhonePage: React.FC<PhonePageProps> = ({ mode = 'scene', centered =
 			icon: 'wppsync',
 			link: 'https://wppsync.imstring.dev'
 		},
-		{ name: 'DNA Puzzle', description: 'Jogo Puzzle', icon: 'dna-puzzle' },
+		{
+			name: 'DNA Puzzle',
+			description: 'Jogo Puzzle',
+			icon: 'dna-puzzle',
+			link: 'https://dnapuzzle.imstring.dev/'
+		},
 		{
 			name: 'Discord Shopper',
 			description: 'E-commerce',
@@ -153,7 +158,8 @@ export const PhonePage: React.FC<PhonePageProps> = ({ mode = 'scene', centered =
 		{
 			name: 'Love Memory',
 			description: 'Jogo Romântico',
-			icon: 'love-memory-game'
+			icon: 'love-memory-game',
+			link: 'https://github.com/ImString/love-memory-game'
 		},
 		{
 			name: 'Group System',
@@ -161,7 +167,12 @@ export const PhonePage: React.FC<PhonePageProps> = ({ mode = 'scene', centered =
 			icon: 'group-system',
 			link: 'https://github.com/ImString/mta-group-system'
 		},
-		{ name: 'Portfólio', description: 'Meu Portfólio', icon: 'portfolio' },
+		{
+			name: 'Portfólio',
+			description: 'Meu Portfólio',
+			icon: 'portfolio',
+			link: 'https://github.com/ImString/portfolio'
+		},
 		{
 			name: 'Tic Tac Toe',
 			description: 'Jogo da Velha',

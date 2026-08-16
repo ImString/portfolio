@@ -49,37 +49,6 @@ const Hours = styled.time`
 	line-height: 1;
 `;
 
-const CloseButton = styled.button`
-	position: absolute;
-	top: 68px;
-	right: 142px;
-	display: grid;
-	place-items: center;
-	width: 29px;
-	height: 29px;
-	margin: 0;
-	padding: 0 0 3px;
-	border: 2px solid rgba(75, 207, 101, 0.48);
-	border-radius: 50%;
-	background: rgba(8, 12, 31, 0.84);
-	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.35);
-	color: #d4d4d7;
-	font-family: Arial, sans-serif;
-	font-size: 20px;
-	line-height: 1;
-	cursor: pointer;
-
-	&:hover {
-		border-color: #01eb7d;
-		color: #01eb7d;
-	}
-
-	&:focus-visible {
-		outline: 2px solid #01eb7d;
-		outline-offset: 3px;
-	}
-`;
-
 const ProjectsTitle = styled.h1`
 	position: absolute;
 	top: 128px;
@@ -156,7 +125,7 @@ const FooterItemLabel = styled.p<{ $active?: boolean }>`
 	line-height: 1;
 `;
 
-export const PhonePage: React.FC<PhonePageProps> = ({ mode = 'scene', centered = false, onClose }) => {
+export const PhonePage: React.FC<PhonePageProps> = ({ mode = 'scene', centered = false }) => {
 	const [currentTime, setCurrentTime] = useState(() => new Date());
 
 	useEffect(() => {
@@ -214,11 +183,7 @@ export const PhonePage: React.FC<PhonePageProps> = ({ mode = 'scene', centered =
 					minute: '2-digit'
 				})}
 			</Hours>
-			{/* {mode === 'scene' && (
-				<CloseButton type="button" onClick={onClose} aria-label="Fechar telefone">
-					×
-				</CloseButton>
-			)} */}
+
 			<ProjectsTitle id="phone-projects-title">MEUS PROJETOS</ProjectsTitle>
 
 			<AppContainer>

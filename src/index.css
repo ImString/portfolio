@@ -1,16 +1,19 @@
 @font-face {
 	font-family: 'MultiTypePixel';
-	src: url('./fonts/MultiTypePixel-Display.otf');
+	src: url('/fonts/MultiTypePixel-Display.otf');
+	font-display: swap;
 }
 
 @font-face {
 	font-family: 'MultiTypePixel-Regular';
-	src: url('./fonts/MultiTypePixel-RegularSC.otf');
+	src: url('/fonts/MultiTypePixel-RegularSC.otf');
+	font-display: swap;
 }
 
 @font-face {
 	font-family: 'Pixter-Granular';
-	src: url('./fonts/Pixter-Granular.ttf');
+	src: url('/fonts/Pixter-Granular.ttf');
+	font-display: swap;
 }
 
 * {
@@ -20,13 +23,20 @@
 html,
 body {
 	width: 100%;
-	min-height: 100%;
+	height: 100%;
+	min-height: 100dvh;
 	margin: 0;
 }
 
 body {
 	overflow: hidden;
 	background: #05040b;
+	overscroll-behavior: none;
+}
+
+button,
+a {
+	-webkit-tap-highlight-color: transparent;
 }
 
 img {

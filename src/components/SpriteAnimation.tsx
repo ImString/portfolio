@@ -13,6 +13,7 @@ interface SpriteAnimationProps {
 
 export const SpriteAnimation: React.FC<SpriteAnimationProps> = props => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
+	const { fps, frameCount, frameSize, onFrameChange, src } = props;
 
 	useEffect(() => {
 		const canvas = canvasRef.current;
@@ -32,7 +33,7 @@ export const SpriteAnimation: React.FC<SpriteAnimationProps> = props => {
 		let currentFrame = 0;
 		let previousTime = 0;
 		let columns = 1;
-		let availableFrameCount = props.frameCount || 8;
+		let availableFrameCount = frameCount || 8;
 		let cancelled = false;
 
 		context.imageSmoothingEnabled = false;
@@ -41,20 +42,20 @@ export const SpriteAnimation: React.FC<SpriteAnimationProps> = props => {
 			const column = currentFrame % columns;
 			const row = Math.floor(currentFrame / columns);
 
-			context.clearRect(0, 0, props.frameSize, props.frameSize);
+			context.clearRect(0, 0, frameSize, frameSize);
 			context.drawImage(
 				image,
-				column * props.frameSize,
-				row * props.frameSize,
-				props.frameSize,
-				props.frameSize,
+				column * frameSize,
+				row * frameSize,
+				frameSize,
+				frameSize,
 				0,
 				0,
-				props.frameSize,
-				props.frameSize
+				frameSize,
+				frameSize
 			);
 
-			props.onFrameChange?.(currentFrame);
+			onFrameChange?.(currentFrame);
 		};
 
 		const animate = (time: number) => {
@@ -62,7 +63,7 @@ export const SpriteAnimation: React.FC<SpriteAnimationProps> = props => {
 				return;
 			}
 
-			const frameDuration = 1000 / Math.max(1, props.fps || 8);
+			const frameDuration = 1000 / Math.max(1, fps || 8);
 
 			if (previousTime === 0) {
 				previousTime = time;
@@ -85,22 +86,22 @@ export const SpriteAnimation: React.FC<SpriteAnimationProps> = props => {
 				return;
 			}
 
-			columns = Math.max(1, Math.floor(image.naturalWidth / props.frameSize));
+			columns = Math.max(1, Math.floor(image.naturalWidth / frameSize));
 
-			const rows = Math.max(1, Math.floor(image.naturalHeight / props.frameSize));
-			availableFrameCount = Math.max(1, Math.min(props.frameCount || 8, columns * rows));
+			const rows = Math.max(1, Math.floor(image.naturalHeight / frameSize));
+			availableFrameCount = Math.max(1, Math.min(frameCount || 8, columns * rows));
 
 			drawFrame();
 			animationFrameId = requestAnimationFrame(animate);
 		};
 
-		image.src = props.src;
+		image.src = src;
 
 		return () => {
 			cancelled = true;
 			cancelAnimationFrame(animationFrameId);
 		};
-	}, [props.fps, props.frameCount, props.frameSize, props.onFrameChange, props.src]);
+	}, [fps, frameCount, frameSize, onFrameChange, src]);
 
 	return (
 		<canvas

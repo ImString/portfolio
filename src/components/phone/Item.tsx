@@ -26,6 +26,10 @@ const Item = styled.button`
 		outline-offset: 5px;
 		border-radius: 8px;
 	}
+
+	&:active {
+		transform: translateY(2px);
+	}
 `;
 
 const Icon = styled.img`
@@ -66,10 +70,10 @@ export const PhoneItemComponent: React.FC<PhoneItemProps> = props => {
 		<Item
 			type="button"
 			onClick={() => {
-				if (props.link) window.open(props.link);
+				if (props.link) window.open(props.link, '_blank', 'noopener,noreferrer');
 				props.onClick?.();
 			}}
-			aria-label={props.name}>
+			aria-label={props.description ? `${props.name}, ${props.description}` : props.name}>
 			<Icon src={props.icon} alt="" draggable={false} />
 			<Name>{props.name}</Name>
 			{props.description && <Description>{props.description}</Description>}

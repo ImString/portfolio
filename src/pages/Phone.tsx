@@ -20,8 +20,7 @@ const Container = styled.section<{ $mode: 'scene' | 'mobile'; $centered: boolean
 	height: 924px;
 	z-index: 1;
 	transform: ${({ $centered }) => ($centered ? 'translateX(-50%)' : 'none')};
-	filter: drop-shadow(0 34px 28px rgba(0, 0, 0, 0.72))
-		drop-shadow(0 0 24px rgba(1, 235, 125, 0.18));
+	filter: drop-shadow(0 34px 28px rgba(0, 0, 0, 0.72)) drop-shadow(0 0 24px rgba(1, 235, 125, 0.18));
 	animation: ${({ $mode }) => ($mode === 'scene' ? 'phone-enter 180ms ease-out both' : 'none')};
 
 	@keyframes phone-enter {
@@ -215,11 +214,11 @@ export const PhonePage: React.FC<PhonePageProps> = ({ mode = 'scene', centered =
 					minute: '2-digit'
 				})}
 			</Hours>
-			{mode === 'scene' && (
+			{/* {mode === 'scene' && (
 				<CloseButton type="button" onClick={onClose} aria-label="Fechar telefone">
 					×
 				</CloseButton>
-			)}
+			)} */}
 			<ProjectsTitle id="phone-projects-title">MEUS PROJETOS</ProjectsTitle>
 
 			<AppContainer>

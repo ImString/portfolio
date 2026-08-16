@@ -7,6 +7,7 @@ import { InfiniteCityBackground } from './components/InfiniteCity';
 import { Keyboard } from './components/Keyboard';
 import { Light } from './components/Light';
 import { Monitor } from './components/Monitor';
+import { PhoneClickInfo } from './components/PhoneClickInfo';
 import { PlantLeft } from './components/PlantLeft';
 import { PlantRight } from './components/PlantRight';
 import { StandBack } from './components/StandBack';
@@ -108,6 +109,7 @@ function App() {
 				<Keyboard />
 				<TablePhone onClick={() => setPhoneIsOpen(true)} />
 
+				<PhoneClickInfo />
 				<Light />
 
 				<PlantLeft />
@@ -125,11 +127,7 @@ function App() {
 						onMouseDown={event => {
 							if (event.target === event.currentTarget) setPhoneIsOpen(false);
 						}}>
-						<PhonePage
-							mode="scene"
-							centered={shouldCropRoom}
-							onClose={() => setPhoneIsOpen(false)}
-						/>
+						<PhonePage mode="scene" centered={shouldCropRoom} onClose={() => setPhoneIsOpen(false)} />
 					</div>
 				)}
 			</div>

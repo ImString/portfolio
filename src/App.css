@@ -1,0 +1,74 @@
+#root {
+	width: 100vw;
+	height: 100vh;
+}
+
+.scene {
+	position: relative;
+	width: 1919px;
+	height: 1080px;
+	overflow: hidden;
+	background: #05040b;
+}
+
+.city-position {
+	position: absolute;
+	top: 32px;
+	left: 33px;
+	width: 1584px;
+	height: 528px;
+	overflow: hidden;
+	z-index: 0;
+}
+
+.background {
+	position: absolute;
+	inset: 0;
+	width: 1919px;
+	height: 1080px;
+	z-index: 1;
+	pointer-events: none;
+	user-select: none;
+}
+
+.carpet {
+	position: absolute;
+	bottom: 111px;
+	left: 374px;
+	z-index: 2;
+}
+
+.coffe {
+	position: absolute;
+	top: 492px;
+	left: 419px;
+	z-index: 2;
+}
+
+.monitor {
+	position: absolute;
+	top: 358px;
+	left: 628px;
+	z-index: 2;
+}
+
+.wall-details {
+	position: absolute;
+	top: 89px;
+	left: 352px;
+	z-index: 2;
+}
+
+.cat {
+	position: absolute;
+	top: 477px;
+	left: 952px;
+	z-index: 2;
+}
+
+.dog {
+	position: absolute;
+	bottom: -20px;
+	left: -178px;
+	z-index: 2;
+}

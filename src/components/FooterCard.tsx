@@ -1,4 +1,14 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const ContainerAnimation = keyframes`
+	0%, 100% {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0.6;
+	}
+`;
 
 const Container = styled.aside`
 	position: absolute;
@@ -18,6 +28,8 @@ const Container = styled.aside`
 		right 160ms ease,
 		bottom 160ms ease,
 		width 160ms ease;
+
+	animation: ${ContainerAnimation} 2s ease-in-out infinite;
 
 	@media (max-width: 600px) {
 		display: none;

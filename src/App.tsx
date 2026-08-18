@@ -3,6 +3,7 @@ import { Bookcase } from './components/Bookcase';
 import { Cat } from './components/Cat';
 import { Coffe } from './components/Coffe';
 import { Dog } from './components/Dog';
+import { FooterCard } from './components/FooterCard';
 import { InfiniteCityBackground } from './components/InfiniteCity';
 import { Keyboard } from './components/Keyboard';
 import { Light } from './components/Light';
@@ -131,6 +132,8 @@ function App() {
 					</div>
 				)}
 			</div>
+
+			{!phoneIsOpen && <FooterCard />}
 		</main>
 	);
 }

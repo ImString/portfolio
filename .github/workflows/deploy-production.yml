@@ -1,0 +1,82 @@
+name: Deploy Production
+
+on:
+    push:
+        branches:
+            - main
+
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+concurrency:
+    group: portfolio-production
+    cancel-in-progress: true
+
+jobs:
+    deploy:
+        if: github.repository == 'ImString/portfolio'
+        runs-on: ubuntu-24.04
+        timeout-minutes: 15
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v7
+
+            - name: Configure PNPM
+              uses: pnpm/action-setup@v6
+              with:
+                  version: 10
+                  run_install: false
+
+            - name: Configure Node.js
+              uses: actions/setup-node@v7
+              with:
+                  node-version: 22
+                  cache: pnpm
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Build
+              run: pnpm run build
+
+            - name: Configure SSH
+              env:
+                  SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+                  SSH_KNOWN_HOSTS: ${{ secrets.VPS_SSH_KNOWN_HOSTS }}
+              run: |
+                  install -d -m 700 "$HOME/.ssh"
+                  printf '%s\n' "$SSH_PRIVATE_KEY" > "$HOME/.ssh/portfolio"
+                  printf '%s\n' "$SSH_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+                  chmod 600 "$HOME/.ssh/portfolio" "$HOME/.ssh/known_hosts"
+
+            - name: Deploy dist
+              env:
+                  VPS_HOST: ${{ secrets.VPS_HOST }}
+                  VPS_USER: ${{ secrets.VPS_USER }}
+                  VPS_DEPLOY_PATH: ${{ vars.VPS_DEPLOY_PATH }}
+              run: |
+                  if [[ ! "$VPS_DEPLOY_PATH" =~ ^/home/[a-zA-Z0-9._-]+$ ]]; then
+                    echo "Invalid deployment path: $VPS_DEPLOY_PATH"
+                    exit 1
+                  fi
+
+                  rsync \
+                    --archive \
+                    --compress \
+                    --delete \
+                    --delay-updates \
+                    --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r \
+                    -e "ssh -i $HOME/.ssh/portfolio -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes" \
+                    dist/ \
+                    "$VPS_USER@$VPS_HOST:$VPS_DEPLOY_PATH/"
+
+                  ssh \
+                    -i "$HOME/.ssh/portfolio" \
+                    -o BatchMode=yes \
+                    -o IdentitiesOnly=yes \
+                    -o StrictHostKeyChecking=yes \
+                    "$VPS_USER@$VPS_HOST" \
+                    "test -f '$VPS_DEPLOY_PATH/index.html'"

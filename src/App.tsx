@@ -4,6 +4,7 @@ import { Cat } from './components/Cat';
 import { Coffe } from './components/Coffe';
 import { Dog } from './components/Dog';
 import { FooterCard } from './components/FooterCard';
+import { HeroIntro } from './components/HeroIntro';
 import { InfiniteCityBackground } from './components/InfiniteCity';
 import { Keyboard } from './components/Keyboard';
 import { Light } from './components/Light';
@@ -20,6 +21,7 @@ import { useEffect, useState } from 'react';
 
 const ROOM_WIDTH = 1919;
 const ROOM_HEIGHT = 1080;
+const WIDE_VIEWPORT_ASPECT_RATIO = 1.9;
 const PHONE_WIDTH = 616;
 const PHONE_HEIGHT = 924;
 const PHONE_BREAKPOINT = 600;
@@ -83,6 +85,7 @@ function App() {
 
 	const viewportAspectRatio = viewport.width / viewport.height;
 	const shouldCropRoom = viewportAspectRatio < 1.15;
+	const shouldCompactHero = viewportAspectRatio > WIDE_VIEWPORT_ASPECT_RATIO;
 	const roomScale = Math.max(viewport.width / ROOM_WIDTH, viewport.height / ROOM_HEIGHT);
 
 	return (
@@ -96,7 +99,8 @@ function App() {
 
 				<img src="/background.png" className="background" alt="" draggable={false} />
 
-				<img src="/wall-details.png" className="wall-details" alt="" draggable={false} />
+				{/* <img src="/wall-details.png" className="wall-details" alt="" draggable={false} /> */}
+				<HeroIntro centered={shouldCropRoom} compact={shouldCompactHero} />
 
 				<img src="/carpet.png" className="carpet" alt="" draggable={false} />
 				<Table />

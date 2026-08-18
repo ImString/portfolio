@@ -10,6 +10,7 @@ const Shadow = styled.div`
 	border-radius: 9999px;
 	filter: blur(21.4px);
 	z-index: 3;
+	pointer-events: none;
 `;
 
 const LightPulse = keyframes`
@@ -42,6 +43,7 @@ const LightImage = styled.img`
 	top: 557px;
 	right: 541px;
 	z-index: 2;
+	pointer-events: none;
 `;
 
 export const Light: React.FC = () => {

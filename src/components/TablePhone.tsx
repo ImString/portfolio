@@ -2,25 +2,26 @@ import styled from 'styled-components';
 
 const PhoneButton = styled.button`
 	position: absolute;
-	right: 657px;
-	bottom: 341px;
-	width: 116px;
-	height: 116px;
+	right: 649px;
+	bottom: 333px;
+	width: 132px;
+	height: 132px;
 	margin: 0;
 	padding: 0;
 	border: 0;
 	border-radius: 24px;
 	background: transparent;
 	cursor: pointer;
-	z-index: 2;
+	touch-action: manipulation;
+	z-index: 4;
 	transition:
 		transform 160ms ease,
 		filter 160ms ease;
 
 	&::before {
 		position: absolute;
-		top: 35px;
-		left: 22px;
+		top: 43px;
+		left: 30px;
 		width: 94px;
 		height: 76px;
 		content: '';
@@ -42,7 +43,9 @@ const PhoneButton = styled.button`
 `;
 
 const PhoneImage = styled.img`
-	position: relative;
+	position: absolute;
+	top: 8px;
+	left: 8px;
 	display: block;
 	width: 116px;
 	height: 116px;

@@ -125,7 +125,53 @@ const FooterItemLabel = styled.p<{ $active?: boolean }>`
 	line-height: 1;
 `;
 
-export const PhonePage: React.FC<PhonePageProps> = ({ mode = 'scene', centered = false }) => {
+const CloseBarButton = styled.button`
+	position: absolute;
+	bottom: 76px;
+	left: 50%;
+	z-index: 2;
+	display: grid;
+	place-items: center;
+	width: 176px;
+	height: 36px;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	border-radius: 12px;
+	background: transparent;
+	transform: translateX(-50%);
+	cursor: pointer;
+	transition:
+		transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+		filter 180ms ease;
+
+	&:hover {
+		transform: translate(-50%, -7px);
+		filter: drop-shadow(0 6px 5px rgba(0, 0, 0, 0.45));
+	}
+
+	&:active {
+		transform: translate(-50%, -4px) scale(0.97);
+	}
+
+	&:focus-visible {
+		outline: 2px solid #01eb7d;
+		outline-offset: 3px;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		transition: none;
+	}
+`;
+
+const CloseBarImage = styled.img`
+	display: block;
+	width: 146px;
+	height: 6px;
+	pointer-events: none;
+`;
+
+export const PhonePage: React.FC<PhonePageProps> = ({ mode = 'scene', centered = false, onClose }) => {
 	const [currentTime, setCurrentTime] = useState(() => new Date());
 
 	useEffect(() => {
@@ -226,6 +272,11 @@ export const PhonePage: React.FC<PhonePageProps> = ({ mode = 'scene', centered =
 					<FooterItemLabel>PERFIL</FooterItemLabel>
 				</FooterItem>
 			</Footer>
+			{mode === 'scene' && (
+				<CloseBarButton type="button" onClick={onClose} aria-label="Fechar telefone">
+					<CloseBarImage src="/phone-footer-bar.svg" alt="" draggable={false} />
+				</CloseBarButton>
+			)}
 		</Container>
 	);
 };

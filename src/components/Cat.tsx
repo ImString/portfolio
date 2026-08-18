@@ -25,6 +25,7 @@ const CatShadow = styled.div`
 	border-radius: 66.5px/21.5px;
 	z-index: 2;
 	filter: blur(14.65px);
+	pointer-events: none;
 `;
 
 export const Cat: React.FC<CatProps> = props => {
@@ -106,7 +107,8 @@ export const Cat: React.FC<CatProps> = props => {
 				style={{
 					width: props.size || FRAME_SIZE,
 					height: props.size || FRAME_SIZE,
-					imageRendering: 'pixelated'
+					imageRendering: 'pixelated',
+					pointerEvents: 'none'
 				}}
 			/>
 		</>

@@ -208,16 +208,16 @@ export const PhonePage: React.FC<PhonePageProps> = ({ mode = 'scene', centered =
 			link: 'https://github.com/ImString/love-memory-game'
 		},
 		{
+			name: 'Portfólio',
+			description: 'Meu Portfólio',
+			icon: 'portfolio',
+			link: 'https://github.com/ImString'
+		},
+		{
 			name: 'Group System',
 			description: 'Gerenciamento',
 			icon: 'group-system',
 			link: 'https://github.com/ImString/mta-group-system'
-		},
-		{
-			name: 'Portfólio',
-			description: 'Meu Portfólio',
-			icon: 'portfolio',
-			link: 'https://github.com/ImString/portfolio'
 		},
 		{
 			name: 'Tic Tac Toe',

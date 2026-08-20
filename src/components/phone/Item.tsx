@@ -13,6 +13,7 @@ const Item = styled.button`
 	margin: 0;
 	padding: 0;
 	border: 0;
+	opacity: 1;
 	background: transparent;
 	color: inherit;
 	cursor: pointer;
@@ -20,6 +21,10 @@ const Item = styled.button`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+
+	&:hover {
+		opacity: 0.8;
+	}
 
 	&:focus-visible {
 		outline: 2px solid #01eb7d;

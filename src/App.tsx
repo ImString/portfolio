@@ -97,7 +97,14 @@ function App() {
 					<InfiniteCityBackground />
 				</div>
 
-				<img src="/background.png" className="background" alt="" draggable={false} />
+				<img
+					src="/background.png"
+					className="background"
+					alt=""
+					draggable={false}
+					decoding="sync"
+					fetchPriority="high"
+				/>
 
 				{/* <img src="/wall-details.png" className="wall-details" alt="" draggable={false} /> */}
 				<HeroIntro centered={shouldCropRoom} compact={shouldCompactHero} />

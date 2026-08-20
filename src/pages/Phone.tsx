@@ -13,9 +13,6 @@ const Container = styled.section<{ $mode: 'scene' | 'mobile'; $centered: boolean
 	top: ${({ $mode }) => ($mode === 'scene' ? '78px' : '0')};
 	right: ${({ $mode, $centered }) => ($mode === 'mobile' ? '0' : $centered ? 'auto' : '44px')};
 	left: ${({ $centered }) => ($centered ? '50%' : 'auto')};
-	background-image: url('/phone-container.png');
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
 	width: 616px;
 	height: 924px;
 	z-index: 1;
@@ -36,6 +33,16 @@ const Container = styled.section<{ $mode: 'scene' | 'mobile'; $centered: boolean
 	@media (prefers-reduced-motion: reduce) {
 		animation: none;
 	}
+`;
+
+const PhoneShell = styled.img`
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
 `;
 
 const Hours = styled.time`
@@ -234,6 +241,13 @@ export const PhonePage: React.FC<PhonePageProps> = ({ mode = 'scene', centered =
 			role={mode === 'scene' ? 'dialog' : undefined}
 			aria-modal={mode === 'scene' ? true : undefined}
 			aria-labelledby="phone-projects-title">
+			<PhoneShell
+				src="/phone-container.png"
+				alt=""
+				draggable={false}
+				decoding="sync"
+				fetchPriority="high"
+			/>
 			<Hours dateTime={currentTime.toISOString()}>
 				{currentTime.toLocaleTimeString('pt-BR', {
 					hour: '2-digit',

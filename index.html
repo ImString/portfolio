@@ -5,6 +5,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<link rel="canonical" href="https://imstring.dev/" />
+		<link rel="preload" href="/background.png" as="image" fetchpriority="high" media="(min-width: 601px)" />
+		<link rel="preload" href="/phone-container.png" as="image" fetchpriority="high" media="(max-width: 600px)" />
+		<link
+			rel="preload"
+			href="/fonts/MultiTypePixel-Display.otf"
+			as="font"
+			type="font/otf"
+			crossorigin="anonymous" />
 
 		<title>Felipe Santos (ImString) | Desenvolvedor de Software</title>
 		<meta name="title" content="Felipe Santos (ImString) | Desenvolvedor de Software" />
@@ -34,8 +42,83 @@
 			content="Desenvolvo soluções digitais com código limpo, experiências envolventes e paixão por tecnologia. Conheça meus projetos com TypeScript, React e Node.js." />
 		<meta name="twitter:image" content="https://imstring.dev/images/meta-tags.png" />
 		<meta name="twitter:image:alt" content="Portfólio de Felipe Santos, o ImString" />
+
+		<style>
+			#loading-screen {
+				position: fixed;
+				inset: 0;
+				z-index: 9999;
+				display: grid;
+				place-items: center;
+				background:
+					radial-gradient(circle at 50% 46%, rgba(1, 235, 125, 0.09), transparent 32%),
+					#05040b;
+				color: #01eb7d;
+				transition:
+					opacity 320ms ease,
+					visibility 320ms ease;
+			}
+
+			#loading-screen.loading-screen--hidden {
+				opacity: 0;
+				visibility: hidden;
+				pointer-events: none;
+			}
+
+			.loading-panel {
+				width: min(320px, calc(100vw - 56px));
+				font-family: monospace;
+				letter-spacing: 0.08em;
+			}
+
+			.loading-label {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				margin-bottom: 13px;
+				font-size: 12px;
+			}
+
+			.loading-label span:first-child {
+				text-shadow: 0 0 12px rgba(1, 235, 125, 0.55);
+			}
+
+			.loading-track {
+				height: 8px;
+				padding: 2px;
+				border: 1px solid rgba(1, 235, 125, 0.58);
+				background: rgba(1, 235, 125, 0.04);
+				box-shadow: 0 0 18px rgba(1, 235, 125, 0.08);
+			}
+
+			#loading-progress {
+				width: 0;
+				height: 100%;
+				background: #01eb7d;
+				box-shadow: 0 0 10px rgba(1, 235, 125, 0.8);
+				transition: width 120ms ease-out;
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				#loading-screen,
+				#loading-progress {
+					transition: none;
+				}
+			}
+		</style>
 	</head>
 	<body>
+		<div id="loading-screen" role="status" aria-live="polite" aria-label="Carregando portfólio">
+			<div class="loading-panel">
+				<div class="loading-label">
+					<span>&gt; CARREGANDO PORTFÓLIO</span>
+					<span id="loading-progress-text">0%</span>
+				</div>
+				<div class="loading-track" aria-hidden="true">
+					<div id="loading-progress"></div>
+				</div>
+			</div>
+		</div>
 		<div id="root"></div>
 		<script type="module" src="/src/main.tsx"></script>
 	</body>

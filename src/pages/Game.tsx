@@ -1,13 +1,13 @@
 import { CitySprite } from '../components/new/CitySprite';
 import { useTextureStore } from '@/stores/textures.store';
+import { useCanvasResize } from '@/utils';
+import { Sprite } from 'pixi.js';
 import { useRef } from 'react';
 
-interface IGamePageProps {
-	canvasSize: { width: number; height: number };
-}
+export const GamePage: React.FC = () => {
+	const backgroundRef = useRef<Sprite | null>(null);
 
-export const GamePage: React.FC<IGamePageProps> = props => {
-	const backgroundRef = useRef(null);
+	const { width, height } = useCanvasResize();
 
 	const textureStore = useTextureStore();
 
@@ -17,8 +17,8 @@ export const GamePage: React.FC<IGamePageProps> = props => {
 			<pixiSprite
 				ref={backgroundRef}
 				texture={textureStore.textures.background}
-				width={props.canvasSize.width}
-				height={props.canvasSize.height}
+				width={width}
+				height={height}
 			/>
 		</pixiContainer>
 	);

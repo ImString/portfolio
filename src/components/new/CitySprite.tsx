@@ -3,7 +3,7 @@ import { useTick } from '@pixi/react';
 import { Sprite } from 'pixi.js';
 import { useRef } from 'react';
 
-export const CitySprite: React.FC<{}> = () => {
+export const CitySprite: React.FC = () => {
 	const textureStore = useTextureStore();
 
 	const loopOneRef = useRef<Sprite | null>(null);

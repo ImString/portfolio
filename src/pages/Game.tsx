@@ -1,30 +1,22 @@
 import { CitySprite } from '../components/new/CitySprite';
-import { Assets, Texture } from 'pixi.js';
-import { useEffect, useRef, useState } from 'react';
+import { useTextureStore } from '@/stores/textures.store';
+import { useRef } from 'react';
 
 interface IGamePageProps {
 	canvasSize: { width: number; height: number };
 }
 
 export const GamePage: React.FC<IGamePageProps> = props => {
-	const spriteRef = useRef(null);
+	const backgroundRef = useRef(null);
 
-	const [texture, setTexture] = useState(Texture.EMPTY);
-
-	useEffect(() => {
-		if (texture === Texture.EMPTY) {
-			Assets.load('/background.png').then(result => {
-				setTexture(result);
-			});
-		}
-	}, [texture]);
+	const textureStore = useTextureStore();
 
 	return (
 		<pixiContainer>
 			<CitySprite />
 			<pixiSprite
-				ref={spriteRef}
-				texture={texture}
+				ref={backgroundRef}
+				texture={textureStore.textures.background}
 				width={props.canvasSize.width}
 				height={props.canvasSize.height}
 			/>

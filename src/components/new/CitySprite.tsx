@@ -1,45 +1,43 @@
-import { useStateRef } from '../../utils/hooks-utilities';
+import { useTextureStore } from '@/stores/textures.store';
 import { useTick } from '@pixi/react';
-import { Assets, Sprite, Texture } from 'pixi.js';
-import { useEffect, useRef, useState } from 'react';
+import { Sprite } from 'pixi.js';
+import { useRef } from 'react';
 
-export const CitySprite: React.FC<{}> = props => {
-	const spriteRef = useRef<Sprite | null>(null);
+export const CitySprite: React.FC<{}> = () => {
+	const textureStore = useTextureStore();
+
+	const loopOneRef = useRef<Sprite | null>(null);
+	const loopTwoRef = useRef<Sprite | null>(null);
 
 	const movement = useRef({
-		velocity: 2,
-		direction: 1,
-		gap: 50,
-		limit: 100
+		velocity: 0.5,
+		gap: 100
 	});
-
-	const [texture, setTexture, textureRef] = useStateRef(Texture.EMPTY);
 
 	useTick(tick => {
-		if (!spriteRef.current) return;
-		if (!textureRef.current) return;
+		if (!textureStore.textures.city) return;
+		if (!loopOneRef.current || !loopTwoRef.current) return;
 
 		const config = movement.current;
-		const sprite = spriteRef.current;
+		const spriteOne = loopOneRef.current;
+		const spriteTwo = loopTwoRef.current;
 
-		if (sprite.x * -1 >= textureRef.current.width - config.gap) {
-			sprite.x = 0;
-		} else {
-			sprite.x -= 1;
+		spriteOne.x -= config.velocity * tick.deltaTime;
+		spriteTwo.x -= config.velocity * tick.deltaTime;
+
+		if (spriteOne.x * -1 >= textureStore.textures.city.width) {
+			spriteOne.x = spriteTwo.x + textureStore.textures.city.width;
+		}
+
+		if (spriteTwo.x * -1 >= textureStore.textures.city.width) {
+			spriteTwo.x = spriteOne.x + textureStore.textures.city.width;
 		}
 	});
-
-	useEffect(() => {
-		if (texture === Texture.EMPTY) {
-			Assets.load('/city-background.png').then(result => {
-				setTexture(result);
-			});
-		}
-	}, [texture]);
 
 	return (
 		<pixiContainer>
-			<pixiSprite ref={spriteRef} texture={texture} />
+			<pixiSprite ref={loopOneRef} texture={textureStore.textures.city} />
+			<pixiSprite ref={loopTwoRef} texture={textureStore.textures.city} x={textureStore.textures.city?.width} />
 		</pixiContainer>
 	);
 };
